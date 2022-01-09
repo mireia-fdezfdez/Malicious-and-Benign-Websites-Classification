@@ -60,7 +60,13 @@ In order to try out and understand how the code works, a demo can be executed us
 `python demo/demo.py`
 
 ## **Conclusions**
--
+Overall, the majority of models have returned a perfect score, with a small variance in its output. As it can be seen the the table above the best models found are the _Baggging Classifier_ using a _Logistic regressor_ as its base and 10 independent estimators; on the other hand, another perfect accuracy has been obtained with a much simpler model, it being a _SVC_ using a _linear_ kernel and 10 as the hyperparameter _C_. Unlike the unsupervised models, the supervised ones all take a rather small time to both fit and predict the data so until there is a bigger amount of samples there is no objective winner to which is the best one.
+
+other people: simple models, mine have more accuracy pero falta xarxes neuronals
 
 ## **Concepts to be worked on in the future**
--
+Finally, this is a brief list of work that could be done to improve this project:
+- It came to my attention that some people had thought of implementing neuronal networks but since my knowledge in the matter is limited I have not been able to implement one yet.
+- As it could be suggested by the class that I used to contain the data, it would be interesting to analyze the behaviour of the models using only the standardized data instead of the one obtained by the PCA, or even without standardization.
+- In the same way, it would be interesting to analyze the behaviour if the dataset is cleaned and filled the means of the values instead of 0s.
+- Lastly, to improve the understanding of each model it would be ideal to perform analysis over different scores such as the _recall_ or the _F1_ score.
