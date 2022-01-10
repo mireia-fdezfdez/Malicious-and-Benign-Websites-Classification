@@ -1,0 +1,6 @@
+Required python packages:
+- time
+- pickle
+- numpy
+- pandas 
+- sklearn 
