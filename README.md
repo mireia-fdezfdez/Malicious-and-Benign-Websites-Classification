@@ -3,6 +3,9 @@
 #### Author: Mireia Fernández Fernández
 #### DATASET (Kaggle): [Malicious and Benign Websites Dataset](https://www.kaggle.com/xwolf12/malicious-and-benign-websites)
 
+## *Introduction*
+This was originally a college project that I worked on earlier in my Bachelor's Degree in Computational Mathematics and Data Analytics. Using it as a base, the goal is to improve it and transform the code into the complete version of the project that I envisioned, but could not achieve, when I was first presented to it.
+
 ## **Brief summary of the data**
 The data used for this project has been extracted from the Kaggle website linked above and, as it has been described there, it consists of a compilation of attributes obtained via Python scripts in order to analyse further URL links to conclude if a website is malicious or not.
 
