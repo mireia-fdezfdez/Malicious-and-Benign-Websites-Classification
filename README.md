@@ -1,4 +1,3 @@
-# PRÀCTICA KAGGLE APC UAB 2021-22 
 # Malicious and Benign Websites Classification
 #### Author: Mireia Fernández Fernández
 #### DATASET (Kaggle): [Malicious and Benign Websites Dataset](https://www.kaggle.com/xwolf12/malicious-and-benign-websites)
