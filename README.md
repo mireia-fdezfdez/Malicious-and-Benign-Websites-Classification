@@ -11,31 +11,33 @@ The data used for this project has been extracted from the Kaggle website linked
 Said dataset, with 1781 unique samples and a total of 21 different attributes, has the following types of data: 67% of it is numerical, 33% of it is categorical and none of it has been normalized yet (this excludes, obviously, the target objective since it is actually a binary attrubute with only 0s to represent benign websites and 1s to represent malicious websites).
 
 ## **Objective**
-The main goal of the project is to find the best model to classify various websites, and conclude wether if they are malicious or not. And while it will be used both supervised and unsupervised learning models, the work done is going to be focused on the first mentioned.
+The main goal of the project is to find the best model to classify various websites, and conclude wether if they are malicious or not by using supervised learning models.
 
 ## **Overall testing**
 Given that the number of samples is limited and it is not possible to obtain new ones easily. They have been separated into two different sets: training and testing, containing a 75% and a 25% respectively. In the future, if the dataset is expanded, this could be modified to fit better the new amount of data adquired.
 
 ## **Preprocessing** 
-At first glance, it is noticeable that the data has a lot of _NaN_ and _None_ values on almost half of the attributes. For instance, the column _CONTENT_LENGTH_ has almost 46% of its samples as null values. Still, it is possible to ask for a correlation matrix of the attributes with the target one to see if there is any pattern we should be aware of: 
+At first glance, it is noticeable that the data has a lot of _NaN_ and _None_ values on almost half of the attributes. For instance, the column _CONTENT_LENGTH_ has almost 46% of its samples as null values. Therefore, we proceed to clean the data, correct any spelling mistakes and fill all the blank spaces in order to obtain a new version that can be used to classify the data. Moreover, we have used the sklearn Label Encoder library to encode into numbers the categorical attributes we had.
+
+The result is a dataset that contains 1773 samples and 21 attributes, whoms correlations look like this: 
 
 <p align="center">
-<img src="https://github.com/mireia-fdezfdez/Malicious-and-Benign-Websites-Classification/blob/main/figures/initial_correlations.png?raw=true"width="500" />
+<img src="https://github.com/mireia-fdezfdez/Malicious-and-Benign-Websites-Classification/blob/main/figures/corr_dataset.png?raw=true"width="400" />
 </p>
 
-Since there is nothing that is highly correlated to _Type_, except itself, we then proceed to clean the data, correct any spelling mistakes and fill all the blank spaces in order to obtain a new version that can be used to classify the data. Moreover, we have used a library to perform a One Hot encoding in some of the categorical attributes, as well as a Label encoding for other ones.
+Given that 21 is still a high number of dimensions, and their correlations do not seem substancial enough, we apply a PC Analysis to reduce its dimensionality and, hopefully, get a new dataset with less attributes but that contains the same, or almost the same, information. After running the code shown in the _preprocessing_ notebook, we end up with the following information of the analysis:
 
-The result is a dataset that contains 1773 samples and 310 attributes, whoms correlations look like this: 
+Firstly, the scree plot shows us that all the components after the 13rd do not provide any useful information. And then, secondly, we can see in the plot of the cumulative explained variance that chosing a threshold of the _95%_ we can stick to only 10 components.
 
 <p align="center">
-<img src="https://github.com/mireia-fdezfdez/Malicious-and-Benign-Websites-Classification/blob/main/figures/standardized_correlations.png?raw=true"width="500" />
+<img src="https://github.com/mireia-fdezfdez/Malicious-and-Benign-Websites-Classification/blob/main/figures/scree_plot.png?raw=true"width="300" />
 </p>
-
-Given that this is a lot of attributes with little information about the one we want to predict, we apply a PC Analysis to reduce its dimensionality and, hopefully, get a new dataset with less attributes but that contains the same, or almost the same, information. After running the code shown in the _preprocessing_ notebook, we end up with the following attributes (242 principal components) and the following correlations with _Type_:
 
 <p align="center">
-<img src="https://github.com/mireia-fdezfdez/Malicious-and-Benign-Websites-Classification/blob/main/figures/pca_correlations.png?raw=true"width="300" />
+<img src="https://github.com/mireia-fdezfdez/Malicious-and-Benign-Websites-Classification/blob/main/figures/expl_variance.png?raw=true"width="300" />
 </p>
+
+And thus, we end up with a dataset of only 10 dimensions that reduced the number of attributes by half from its originaly data.
 
 ## **Models Used**
 
@@ -53,16 +55,13 @@ Given that this is a lot of attributes with little information about the one we 
 | Bagging Classifier | <ul><li>**Base Estimator**= SVC('rbf') </li><li>**N Estimators**= 10 </li></ul> | 99.32432432432432 % |  272.60327339172363 (ms) |
 | Adaptive Boosting | N Estimators = 500 | 99.54954954954955 % |  155.61890602111816 (ms) |
 | Gradient Boosting | <ul><li>**N Estimators**= 500 </li><li>**Maximum Depth**= 5 </li></ul> | 99.77477477477478 % |  2.994537353515625 (ms) |
-| K-Means | N Clusters = 2 | 15.54054054054054 % |  0.9984970092773438 (ms) |
-| K-Means | N Clusters = 3 | 83.1081081081081 % |  0.9970664978027344 (ms) |
-| Spectral K-Means | N Clusters = 2 | 88.51351351351352 % |  9069.884061813354 (ms) |
 
 ## **Demo**
 In order to try out and understand how the code works, a demo can be executed using the following command:
 `python demo/demo.py`
 
 ## **Conclusions**
-Overall, the majority of models have returned a perfect score, with a small variance in its output. As it can be seen the the table above the best models found are the _Baggging Classifier_ using a _Logistic regressor_ as its base and 10 independent estimators; on the other hand, another perfect accuracy has been obtained with a much simpler model, it being a _SVC_ using a _linear_ kernel and 10 as the hyperparameter _C_. Unlike the unsupervised models, the supervised ones all take a rather small time to both fit and predict the data so until there is a bigger amount of samples there is no objective winner to which is the best one.
+Overall, the majority of models have returned a perfect score, with a small variance in its output. As it can be seen the the table above the best models found are the _Baggging Classifier_ using a _Logistic regressor_ as its base and 10 independent estimators; on the other hand, another perfect accuracy has been obtained with a much simpler model, it being a _SVC_ using a _linear_ kernel and 10 as the hyperparameter _C_. All take a rather small time to both fit and predict the data so until there is a bigger amount of samples there is no objective winner to which is the best one.
 
 ## **Concepts to be worked on in the future**
 Finally, this is a brief list of work that could be done to improve this project:
